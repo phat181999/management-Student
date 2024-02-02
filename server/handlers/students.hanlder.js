@@ -6,6 +6,7 @@ const {
   deleteSpecStudent,
   enrollmentClass,
   getStudentEnrollment,
+  checkStudentExistence,
 } = require("../services/user.services");
 
 const getStudents = async (request, h) => {
@@ -101,6 +102,21 @@ const getStudentEnrollClass = async (request, h) => {
   }
 };
 
+const login = async (r, h) => {
+  try {
+    const { first_name, last_name } = r.payload;
+    console.log(first_name, last_name);
+    const result = await checkStudentExistence(first_name, last_name);
+    console.log(result, "result");
+    if (!result) {
+      return h.response("Somethigs wrong").code(400);
+    }
+    return h.response(result).code(200);
+  } catch (err) {
+    console.error("Error handling request", error);
+    return h.response("Internal Server Error").code(500);
+  }
+};
 module.exports = {
   getStudents,
   createStudent,
@@ -109,4 +125,5 @@ module.exports = {
   deleteStudent,
   enrollmentClassStudent,
   getStudentEnrollClass,
+  login,
 };

@@ -6,6 +6,7 @@ const {
   deleteStudent,
   enrollmentClassStudent,
   getStudentEnrollClass,
+  login,
 } = require("../handlers/students.hanlder");
 const Joi = require("@hapi/joi");
 module.exports = [
@@ -48,6 +49,19 @@ module.exports = [
           fristName: Joi.string().max(100).required(),
           lastName: Joi.string().max(100).required(),
           birthDate: Joi.date().iso().required(),
+        }),
+      },
+    },
+  },
+  {
+    method: "POST",
+    path: "/login/student",
+    handler: login,
+    options: {
+      validate: {
+        payload: Joi.object({
+          first_name: Joi.string().max(100).required(),
+          last_name: Joi.string().max(100).required(),
         }),
       },
     },

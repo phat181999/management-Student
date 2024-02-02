@@ -1,4 +1,5 @@
 const { pool } = require("../config/config");
+const authen = require("../middlewares/authentication");
 
 async function getAllStudent() {
   try {
@@ -122,6 +123,24 @@ async function getStudentEnrollment(student_id) {
   }
 }
 
+async function checkStudentExistence(firstName, lastName) {
+  try {
+    const query =
+      "SELECT * FROM students WHERE first_name = $1 AND last_name = $2";
+    const result = await pool.query(query, [firstName, lastName]);
+    const student = { firstName: firstName, lastName: lastName };
+    if (result.rows.length > 0) {
+      const token = authen.createToken(student);
+      return token;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error checking student existence:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllStudent,
   getStudent,
@@ -130,4 +149,5 @@ module.exports = {
   deleteSpecStudent,
   enrollmentClass,
   getStudentEnrollment,
+  checkStudentExistence,
 };
