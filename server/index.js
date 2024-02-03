@@ -1,10 +1,12 @@
 "use strict";
-
 const Hapi = require("@hapi/hapi");
 const connectDb = require("./config/config").checkDatabaseConnection;
 const UserRoutes = require("./routers/student");
 const Teacher = require("./routers/teacher");
 const Classes = require("./routers/class");
+const routeBuilder = require("hapi-route-builder");
+const ODataServer = require("odata-v4-server");
+
 const init = async () => {
   const server = Hapi.server({
     port: 3000,
@@ -22,6 +24,9 @@ const init = async () => {
   server.route(UserRoutes);
   server.route(Teacher);
   server.route(Classes);
+  // await server.register({ plugin: routeBuilder });
+
+  // server.route(routeBuilder.routesForHandler(ODataServer.createHandler(model)));
   await server.start();
   console.log("Server running on %s", server.info.uri);
 };

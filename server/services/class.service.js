@@ -2,7 +2,23 @@ const { pool } = require("../config/config");
 
 async function getAllClass() {
   try {
-    const result = await pool.query("SELECT * FROM classes");
+    const result = await pool.query(`
+      SELECT
+          classes.class_id,
+          classes.class_name,
+          teachers.teacher_id AS teacher_id,
+          teachers.first_name AS teacher_first_name,
+          teachers.last_name AS teacher_last_name,
+          students.student_id,
+          students.first_name AS student_first_name,
+          students.last_name AS student_last_name
+      FROM
+          classes
+      INNER JOIN teachers ON classes.teacher_id = teachers.teacher_id
+      INNER JOIN enrollment ON classes.class_id = enrollment.class_id
+      INNER JOIN students ON enrollment.student_id = students.student_id
+    `);
+
     return result.rows;
   } catch (error) {
     console.error("Error fetching classes", error);

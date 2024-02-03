@@ -7,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+  items: any[] | undefined;
+  constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.items = [
+      { label: 'Classes', icon: 'pi pi-home', routerLink: '/classes' },
+      { label: 'Teachers', icon: 'pi pi-user', routerLink: '/teachers' },
+      { label: 'Students', icon: 'pi pi-user', routerLink: '/students' },
+    ];
+  }
 }

@@ -7,11 +7,22 @@ const {
   enrollmentClass,
   getStudentEnrollment,
   checkStudentExistence,
+  getStudentsClasses,
 } = require("../services/user.services");
 
 const getStudents = async (request, h) => {
   try {
     const result = await getAllStudent();
+    return h.response(result).code(200);
+  } catch (err) {
+    console.error("Error handling request", error);
+    return h.response("Internal Server Error").code(500);
+  }
+};
+
+const getStudentsClass = async (request, h) => {
+  try {
+    const result = await getStudentsClasses();
     return h.response(result).code(200);
   } catch (err) {
     console.error("Error handling request", error);
@@ -126,4 +137,5 @@ module.exports = {
   enrollmentClassStudent,
   getStudentEnrollClass,
   login,
+  getStudentsClass,
 };

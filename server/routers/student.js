@@ -7,6 +7,7 @@ const {
   enrollmentClassStudent,
   getStudentEnrollClass,
   login,
+  getStudentsClass,
 } = require("../handlers/students.hanlder");
 const Joi = require("@hapi/joi");
 module.exports = [
@@ -14,6 +15,11 @@ module.exports = [
     method: "GET",
     path: "/students",
     handler: getStudents,
+  },
+  {
+    method: "GET",
+    path: "/students-classes",
+    handler: getStudentsClass,
   },
   {
     method: "GET",

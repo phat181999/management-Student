@@ -1,6 +1,32 @@
 const { pool } = require("../config/config");
 const authen = require("../middlewares/authentication");
 
+async function getStudentsClasses() {
+  try {
+    const result = await pool.query(`
+      SELECT
+          students.student_id,
+          students.first_name AS student_first_name,
+          students.last_name AS student_last_name,
+          classes.class_id,
+          classes.class_name,
+          teachers.teacher_id AS teacher_id,
+          teachers.first_name AS teacher_first_name,
+          teachers.last_name AS teacher_last_name
+      FROM
+          students
+      INNER JOIN enrollment ON students.student_id = enrollment.student_id
+      INNER JOIN classes ON enrollment.class_id = classes.class_id
+      INNER JOIN teachers ON classes.teacher_id = teachers.teacher_id;
+    `);
+
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching all classes", error);
+    throw error;
+  }
+}
+
 async function getAllStudent() {
   try {
     const result = await pool.query("SELECT * FROM students");
@@ -150,4 +176,5 @@ module.exports = {
   enrollmentClass,
   getStudentEnrollment,
   checkStudentExistence,
+  getStudentsClasses,
 };
