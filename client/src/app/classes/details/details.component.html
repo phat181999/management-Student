@@ -1,0 +1,50 @@
+<div class="card flex justify-content-center">
+  <p-dialog
+    header="{{ title }}"
+    [(visible)]="visible"
+    [style]="{ width: '50vw' }"
+    (onHide)="closeDialog()"
+  >
+    <form [formGroup]="teacher ? teacherForm : studentForm">
+      <div>
+        <label for="name">First Name:</label>
+        <input type="text" pInputText formControlName="first_name" />
+      </div>
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" pInputText formControlName="last_name" />
+      </div>
+      <div *ngIf="!(deleteTeacher || updateTeacher || addNewTeacher)">
+        <label for="birthDate">Birth Date:</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="birth_date"
+          [value]="
+            studentForm.get('birth_date')
+              | dateFormat
+              | date : 'yyyy-MM-dd HH:mm:ss'
+          "
+        />
+      </div>
+
+      <button
+        type="button"
+        (click)="handleUpdate()"
+        *ngIf="update || updateTeacher"
+      >
+        Update {{ updateTeacher ? "Teacher" : "Student" }}
+      </button>
+      <button
+        type="button"
+        (click)="handleDelete()"
+        *ngIf="delete || deleteTeacher"
+      >
+        Delete {{ deleteTeacher ? "Teacher" : "Student" }}
+      </button>
+      <button type="button" (click)="handleAdd()" *ngIf="add || addNewTeacher">
+        Add {{ addNewTeacher ? "Teacher" : "Student" }}
+      </button>
+    </form>
+  </p-dialog>
+</div>

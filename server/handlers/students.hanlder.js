@@ -47,6 +47,7 @@ const getDetailStudent = async (request, h) => {
 const createStudent = async (request, h) => {
   try {
     const { fristName, lastName, birthDate } = request.payload;
+    console.log(fristName, lastName, birthDate);
     const result = await createNewStudent(fristName, lastName, birthDate);
     return h.response(result).code(201);
   } catch (err) {

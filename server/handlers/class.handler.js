@@ -5,11 +5,22 @@ const {
   updateDetaiClass,
   deleteSpecClass,
   getClassTeacher,
+  getClasses,
 } = require("../services/class.service");
 
-const getClasses = async (request, h) => {
+const getClasses1 = async (request, h) => {
   try {
     const result = await getAllClass();
+    return h.response(result).code(200);
+  } catch (err) {
+    console.error("Error handling request", error);
+    return h.response("Internal Server Error").code(500);
+  }
+};
+
+const getClasses2 = async (request, h) => {
+  try {
+    const result = await getClasses();
     return h.response(result).code(200);
   } catch (err) {
     console.error("Error handling request", error);
@@ -89,10 +100,11 @@ const getTeacherRelateClass = async (req, h) => {
 };
 
 module.exports = {
-  getClasses,
+  getClasses1,
   getDetailClass,
   createClass,
   updateClass,
   deleteClass,
   getTeacherRelateClass,
+  getClasses2,
 };

@@ -1,11 +1,14 @@
 <div class="classes">
+  <div class="title">
+    <h3>Managements</h3>
+  </div>
   <div class="action">
     <p-button label="Add">
       <i class="pi pi-plus" style="font-size: 1rem"></i>
     </p-button>
   </div>
   <div class="card">
-    <p-table [value]="classes" [tableStyle]="{ 'min-width': '50rem' }">
+    <p-table [value]="data" [tableStyle]="{ 'min-width': '50rem' }">
       <ng-template pTemplate="header">
         <tr>
           <th>Class Name</th>
@@ -13,11 +16,11 @@
           <th>Student</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-class>
+      <ng-template pTemplate="body" let-data>
         <tr>
-          <td>{{ class.class_name }}</td>
-          <td>{{ class.teacher_first_name }} {{ class.teacher_last_name }}</td>
-          <td>{{ class.student_first_name }} {{ class.student_last_name }}</td>
+          <td>{{ data.class_name }}</td>
+          <td>{{ data.teacher_first_name }} {{ data.teacher_last_name }}</td>
+          <td>{{ data.student_first_name }} {{ data.student_last_name }}</td>
           <td>
             <p-button>
               <i class="pi pi-pencil" style="font-size: 1rem"></i>
@@ -32,4 +35,97 @@
       </ng-template>
     </p-table>
   </div>
+</div>
+<!-- Students -->
+<div class="students">
+  <div class="title">
+    <h3>Students</h3>
+  </div>
+  <div class="action">
+    <p-button label="Add Student" (click)="addStudent()">
+      <i class="pi pi-plus" style="font-size: 1rem"></i>
+    </p-button>
+  </div>
+  <div class="card">
+    <p-table [value]="students" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Birth Date</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-student>
+        <tr>
+          <td>{{ student.first_name }}</td>
+          <td>{{ student.last_name }}</td>
+          <td>{{ student.birth_date }}</td>
+          <td>
+            <p-button (click)="handleStudents(student.student_id)">
+              <i class="pi pi-pencil" style="font-size: 1rem"></i>
+            </p-button>
+          </td>
+          <td>
+            <p-button (click)="deleteStudents(student.student_id)">
+              <i class="pi pi-times-circle" style="font-size: 1rem"></i>
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<!-- Teachers -->
+<div class="teachers">
+  <div class="title">
+    <h3>Teachers</h3>
+  </div>
+  <div class="action">
+    <p-button label="Add Teacher" (click)="addTeacher()">
+      <i class="pi pi-plus" style="font-size: 1rem"></i>
+    </p-button>
+  </div>
+  <div class="card">
+    <p-table [value]="teachers" [tableStyle]="{ 'min-width': '50rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-teacher>
+        <tr>
+          <td>{{ teacher.first_name }}</td>
+          <td>{{ teacher.last_name }}</td>
+          <td>
+            <p-button (click)="handleUpdateTeacher(teacher.teacher_id)">
+              <i class="pi pi-pencil" style="font-size: 1rem"></i>
+            </p-button>
+          </td>
+          <td>
+            <p-button (click)="handleDeleteTeacher(teacher.teacher_id)">
+              <i class="pi pi-times-circle" style="font-size: 1rem"></i>
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<div class="detail-dialog">
+  <app-details
+    [(visible)]="visible"
+    [title]="title"
+    (visibleChange)="onVisibleChange($event)"
+    [studentsData]="studentsData"
+    [teachersData]="teachersData"
+    [update]="update"
+    [delete]="delete"
+    [add]="add"
+    [addNewTeacher]="addNewTeacher"
+    [updateTeacher]="updateTeacher"
+    [deleteTeacher]="deleteTeacher"
+    [teacher]="teacher"
+  ></app-details>
 </div>

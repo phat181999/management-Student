@@ -26,6 +26,17 @@ async function getAllClass() {
   }
 }
 
+async function getClasses() {
+  try {
+    const result = await pool.query("SELECT * FROM classes ");
+
+    return result.rows;
+  } catch (error) {
+    console.error("Error fetching classes", error);
+    throw error;
+  }
+}
+
 async function getClass(class_id) {
   try {
     const result = await pool.query(
@@ -123,4 +134,5 @@ module.exports = {
   updateDetaiClass,
   deleteSpecClass,
   getClassTeacher,
+  getClasses,
 };

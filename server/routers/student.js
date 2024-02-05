@@ -52,8 +52,8 @@ module.exports = [
     options: {
       validate: {
         payload: Joi.object({
-          fristName: Joi.string().max(100).required(),
-          lastName: Joi.string().max(100).required(),
+          fristName: Joi.string().max(200).required(),
+          lastName: Joi.string().max(200).required(),
           birthDate: Joi.date().iso().required(),
         }),
       },

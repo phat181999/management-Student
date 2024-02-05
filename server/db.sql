@@ -2,8 +2,8 @@
 CREATE TABLE
     IF NOT EXISTS students (
         student_id SERIAL PRIMARY KEY,
-        first_name VARCHAR(50),
-        last_name VARCHAR(50),
+        first_name VARCHAR(200),
+        last_name VARCHAR(200),
         birth_date DATE
     );
 
@@ -11,8 +11,8 @@ CREATE TABLE
 CREATE TABLE
     IF NOT EXISTS teachers (
         teacher_id SERIAL PRIMARY KEY,
-        first_name VARCHAR(50),
-        last_name VARCHAR(50)
+        first_name VARCHAR(200),
+        last_name VARCHAR(200)
     );
 
 -- Create Classes table
@@ -20,7 +20,7 @@ CREATE TABLE
     IF NOT EXISTS classes (
         class_id SERIAL PRIMARY KEY,
         teacher_id INT REFERENCES teachers (teacher_id),
-        class_name VARCHAR(50)
+        class_name VARCHAR(200)
     );
 
 -- Create Enrollment table to represent the many-to-many relationship between classes and students

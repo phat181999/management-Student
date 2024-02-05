@@ -59,6 +59,7 @@ async function createNewStudent(fristName, lastName, birthDate) {
       "INSERT INTO students (first_name, last_name) VALUES ($1, $2, $3) RETURNING first_name, last_name, birth_date",
       [fristName, lastName, birthDate]
     );
+    console.log(result);
     return result.rows[0];
   } catch (error) {
     console.error("Error creating student:", error);

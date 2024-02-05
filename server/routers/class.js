@@ -1,17 +1,23 @@
 const {
-  getClasses,
+  getClasses1,
   getDetailClass,
   createClass,
   updateClass,
   deleteClass,
   getTeacherRelateClass,
+  getClasses2,
 } = require("../handlers/class.handler");
 const Joi = require("@hapi/joi");
 module.exports = [
   {
     method: "GET",
     path: "/classes",
-    handler: getClasses,
+    handler: getClasses1,
+  },
+  {
+    method: "GET",
+    path: "/classes2",
+    handler: getClasses2,
   },
   {
     method: "GET",
